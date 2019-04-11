@@ -9,7 +9,16 @@
 				<a class="index-item-link intrinsic" href="{fullUrl}">
 					{.background-source-video?}
 						<figure data-controller="VideoBackground" class="index-item-image-wrapper js-index-item-image-wrapper">
-		        	{@|apply sqs-video-background.block}
+							{.section video}
+                              <div class="sqs-video-background content-fill" data-config-url="{url}" data-config-playback-speed="{playbackSpeed}" data-config-filter="{filter}" data-config-filter-strength="{filterStrength}">
+                                {.section videoFallbackContentItem}
+                                  <img {@|image-meta} class="index-item-image js-index-item-image loading" data-load="true" />
+                                {.end}
+
+                                <div id="player"></div>
+
+                              </div>
+                            {.end}
 						</figure>
 		      {.or}
 						{.section mainImage}<figure class="index-item-image-wrapper js-index-item-image-wrapper"><img class="index-item-image js-index-item-image loading" {@|image-meta} data-load="false" /></figure>{.end}
