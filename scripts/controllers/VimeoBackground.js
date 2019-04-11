@@ -45,6 +45,7 @@ class VimeoBackground {
    * @param {Object} windowContext - The parent window object (due to .sqs-site-frame).
    */
   constructor(props, windowContext = window) {
+    console.log('VIMEO Background');
     this.windowContext = windowContext;
     this.events = [];
 
@@ -115,6 +116,23 @@ class VimeoBackground {
       'handler': resizeHandler
     });
     this.windowContext.addEventListener(resizeEvent, resizeHandler, true);
+
+    this.container.parentElement.addEventListener('mouseenter', () => {
+      if (this.player && this.player.postMessageManager) {
+        this.player.postMessageManager('setVolume', '0');
+        this.player.postMessageManager('setLoop', 'true');
+        this.player.postMessageManager('seekTo', this.timeCode.start);
+        this.player.postMessageManager('play');
+        this.player.postMessageManager('addEventListener', 'playProgress');
+      }
+    });
+
+    this.container.parentElement.addEventListener('mouseleave', () => {
+      if (this.player && this.player.postMessageManager) {
+        this.player.postMessageManager('seekTo', this.timeCode.start);
+        this.player.postMessageManager('pause');
+      }
+    });
   }
 
   /**
@@ -425,11 +443,11 @@ class VimeoBackground {
       // Only required for Vimeo Basic videos, or video URLs with a start time hash.
       // Plus and Pro utilize `background=1` URL parameter.
       // See https://vimeo.com/forums/topic:278001
-      postMessageManager('setVolume', '0');
-      postMessageManager('setLoop', 'true');
-      postMessageManager('seekTo', this.timeCode.start);
-      postMessageManager('play');
-      postMessageManager('addEventListener', 'playProgress');
+      // postMessageManager('setVolume', '0');
+      // postMessageManager('setLoop', 'true');
+      // postMessageManager('seekTo', this.timeCode.start);
+      // postMessageManager('play');
+      // postMessageManager('addEventListener', 'playProgress');
     };
 
     const onReady = () => {
@@ -449,6 +467,11 @@ class VimeoBackground {
         this.canAutoPlay = true;
         this.container.classList.remove('mobile');
       }
+    };
+
+    const onStopped = () => {
+      player.ready = false;
+      player.iframe.classList.remove('ready');
     };
 
     const onMessageReceived = (event) => {
@@ -479,6 +502,8 @@ class VimeoBackground {
           postMessageManager('seekTo', this.timeCode.start);
         }
         break;
+      case 'pause':
+        console.log('paused');
       }
 
       switch (data.method) {
