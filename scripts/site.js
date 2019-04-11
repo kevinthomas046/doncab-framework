@@ -15,7 +15,7 @@ import MobileOverlayFolders from './controllers/MobileOverlayFolders';
 import MobileOverlayToggle from './controllers/MobileOverlayToggle';
 import ProjectController from './controllers/ProjectController';
 import UserAccountLink from './controllers/UserAccountsController';
-import VideoBackground from '@squarespace/video-background';
+import VideoBackground from './controllers/VimeoBackground';
 
 controller.register('AncillaryLayout', AncillaryLayout);
 controller.register('BannerController', BannerController);
