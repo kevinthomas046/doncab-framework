@@ -24,6 +24,7 @@
     "@squarespace/core": "1.1.0",
     "@squarespace/video-background": "^2.0.1",
     "@squarespace/video-background-rendering": "^1.0.6",
+    "@vimeo/player": "^2.8.2",
     "babel-runtime": "^6.23.0"
   },
   "devDependencies": {
