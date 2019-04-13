@@ -119,19 +119,18 @@ class VimeoBackground {
     this.windowContext.addEventListener(resizeEvent, resizeHandler, true);
 
     this.container.parentElement.addEventListener('mouseenter', () => {
-      if (this.player && this.player.postMessageManager) {
-        this.player.postMessageManager('setVolume', '0');
-        this.player.postMessageManager('setLoop', 'true');
-        this.player.postMessageManager('seekTo', this.timeCode.start);
-        this.player.postMessageManager('play');
-        this.player.postMessageManager('addEventListener', 'playProgress');
+      if (this.player && this.player.vimeoInstance) {
+        this.player.vimeoInstance.element.classList.add('ready');
+        this.player.vimeoInstance.setCurrentTime(0).then(() => { this.player.vimeoInstance.play(); });
       }
     });
 
     this.container.parentElement.addEventListener('mouseleave', () => {
-      if (this.player && this.player.postMessageManager) {
-        this.player.postMessageManager('seekTo', this.timeCode.start);
-        this.player.postMessageManager('pause');
+      if (this.player && this.player.vimeoInstance) {
+        this.player.vimeoInstance.element.classList.remove('ready');
+        setTimeout(() => {
+          this.player.vimeoInstance.setCurrentTime(0).then(() => { this.player.vimeoInstance.pause(); });
+        }, 500);
       }
     });
   }
@@ -235,17 +234,20 @@ class VimeoBackground {
   }
 
   initializeVimeoPlayer() {
-    const player = new Player(this.container.querySelector('#player'), {
-      url: this.videoURL,
-      autoplay: true,
-      loop: true
-    });
+    const playerIframe = this.windowContext.document.createElement('iframe');
+    playerIframe.id = 'vimeoplayer';
+    playerIframe.classList.add('background-video');
+    playerIframe.src = `//player.vimeo.com/video/${this.videoId}?api=1&background=1`;
+    this.container.appendChild(playerIframe);
+    this.player.iframe = playerIframe;
+
+    const player = new Player(playerIframe);
 
     player
       .ready()
       .then(() => {
         this.player.iframe = player.element;
-        player.element.classList.add('background-video', 'ready');
+        player.element.classList.add('background-video');
       })
       .then(() => {
         return Promise.all([player.getVideoWidth(), player.getVideoHeight()]);
@@ -258,7 +260,7 @@ class VimeoBackground {
       })
       .then(this.syncPlayer.bind(this));
 
-    console.log(player);
+    this.player.vimeoInstance = player;
   }
 
   /**
