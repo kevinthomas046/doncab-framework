@@ -531,7 +531,7 @@ body:not(.sqs-style-mode-active) .index-item-image-wrapper {
 	.transition(opacity 300ms cubic-bezier(.33, 0, .2, 1));
 }
 
-.index-item-link:hover {
+.index-item-link:not(.has-item-video):hover {
 	> .index-item-image-wrapper {
 		opacity: (@indexItemImageHoverOpacity / 100);
 	}
