@@ -544,6 +544,12 @@ body:not(.sqs-style-mode-active) .index-item-image-wrapper {
 	max-height: 100%;
 }
 
+.js-index-item-image {
+	.has-item-video & {
+		filter: grayscale(100%);
+	}
+}
+
 // Index Item Title Defaults
 .index-item-title {
 	.index-item-title-font;
