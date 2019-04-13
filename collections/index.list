@@ -8,11 +8,11 @@
 			<article class="index-item{.background-source-video?} has-item-video{.or}{.section mainImage} has-item-image{.end}{.end}" data-item-id="{id}" data-url-id="{urlId}"{.background-source-video?}{.or}{.section mainImage}{.if colorData} style="background-color: #{colorData.suggestedBgColor}"{.end}{.end}{.end}>
 				<a class="index-item-link intrinsic" href="{fullUrl}">
 					{.background-source-video?}
-						<figure data-controller="VideoBackground" class="index-item-image-wrapper js-index-item-image-wrapper">
+						<figure data-controller="VimeoBackground" class="index-item-image-wrapper js-index-item-image-wrapper">
 							{.section video}
                               <div class="sqs-video-background content-fill" data-config-url="{url}" data-config-playback-speed="{playbackSpeed}" data-config-filter="{filter}" data-config-filter-strength="{filterStrength}">
                                 {.section videoFallbackContentItem}
-                                  <img {@|image-meta} class="custom-fallback-image" data-load="true" />
+                                  <img {@|image-meta} class="index-item-image js-index-item-image loading" data-load="true" />
                                 {.end}
 
                                 <div id="player"></div>
