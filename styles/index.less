@@ -531,9 +531,13 @@ body:not(.sqs-style-mode-active) .index-item-image-wrapper {
 	.transition(opacity 300ms cubic-bezier(.33, 0, .2, 1));
 }
 
-.index-item-link:not(.has-item-video):hover {
+.index-item-link:hover {
 	> .index-item-image-wrapper {
-		opacity: (@indexItemImageHoverOpacity / 100);
+		// Removing hover opacity for images
+		// opacity: (@indexItemImageHoverOpacity / 100);
+		> .js-index-item-image {
+			filter: none;
+		}
 	}
 }
 
@@ -545,9 +549,8 @@ body:not(.sqs-style-mode-active) .index-item-image-wrapper {
 }
 
 .js-index-item-image {
-	.has-item-video & {
-		filter: grayscale(100%);
-	}
+	filter: grayscale(100%);
+	.transition(filter 300ms cubic-bezier(.33, 0, .2, 1));
 }
 
 // Index Item Title Defaults
