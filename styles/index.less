@@ -549,8 +549,10 @@ body:not(.sqs-style-mode-active) .index-item-image-wrapper {
 }
 
 .js-index-item-image {
-	filter: grayscale(100%);
-	.transition(filter 300ms cubic-bezier(.33, 0, .2, 1));
+	.no-touch & {
+		filter: grayscale(100%);
+		.transition(filter 500ms cubic-bezier(.33, 0, .2, 1));
+	}
 }
 
 // Index Item Title Defaults
