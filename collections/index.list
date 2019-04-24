@@ -6,10 +6,19 @@
 
 		<div id="index-section-{urlId}" class="index-section index-page-transition-link">
 			<article class="index-item{.background-source-video?} has-item-video{.or}{.section mainImage} has-item-image{.end}{.end}" data-item-id="{id}" data-url-id="{urlId}"{.background-source-video?}{.or}{.section mainImage}{.if colorData} style="background-color: #{colorData.suggestedBgColor}"{.end}{.end}{.end}>
-				<a class="index-item-link intrinsic" href="{fullUrl}">
+				<a class="index-item-link intrinsic{.background-source-video?} has-item-video{.end}" href="{fullUrl}">
 					{.background-source-video?}
-						<figure data-controller="VideoBackground" class="index-item-image-wrapper js-index-item-image-wrapper">
-		        	{@|apply sqs-video-background.block}
+						<figure data-controller="VimeoBackground" class="index-item-image-wrapper js-index-item-image-wrapper">
+							{.section video}
+                              <div class="sqs-video-background content-fill" data-config-url="{url}" data-config-playback-speed="{playbackSpeed}" data-config-filter="{filter}" data-config-filter-strength="{filterStrength}">
+                                {.section videoFallbackContentItem}
+                                  <img {@|image-meta} class="index-item-image js-index-item-image loading" data-load="true" />
+                                {.end}
+
+                                <div id="player"></div>
+
+                              </div>
+                            {.end}
 						</figure>
 		      {.or}
 						{.section mainImage}<figure class="index-item-image-wrapper js-index-item-image-wrapper"><img class="index-item-image js-index-item-image loading" {@|image-meta} data-load="false" /></figure>{.end}
