@@ -531,28 +531,11 @@ body:not(.sqs-style-mode-active) .index-item-image-wrapper {
 	.transition(opacity 300ms cubic-bezier(.33, 0, .2, 1));
 }
 
-.index-item-link:hover {
-	> .index-item-image-wrapper {
-		// Removing hover opacity for images
-		// opacity: (@indexItemImageHoverOpacity / 100);
-		> .js-index-item-image {
-			filter: none;
-		}
-	}
-}
-
 .index-item-image {
 	width: auto;
 	height: auto;
 	max-width: @indexItemWidth * 10%;
 	max-height: 100%;
-}
-
-.js-index-item-image {
-	.no-touch & {
-		filter: grayscale(100%) contrast(150%);
-		.transition(filter 500ms cubic-bezier(.33, 0, .2, 1));
-	}
 }
 
 // Index Item Title Defaults
